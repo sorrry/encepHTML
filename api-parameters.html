@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>iFrame API with parameters</title>
+<meta charset="UTF-8">
+<style type="text/css">
+body{margin:0;}
+iframe{border:none;}
+</style>
+</head>
+<body>
+ <div id="api">
+ </div>
+ <script type="text/javascript" src="https://www.youtube2mp3.cc/js/jquery-1.12.1.min.js"></script>
+ <script type="text/javascript">
+    $(document).ready(function() {
+       if(-1 < document.URL.indexOf('#')) {
+          var params = document.URL.split('#')[1].split('|');	  
+          $.each(params, function(index, value) {
+             params[index] = $.trim(value);	 
+          });
+          
+          var videoId = /[a-zA-Z0-9\-\_]{11}/.exec(params[0]);
+          var format  = /mp[3-4]{1}/.exec(params[1]);
+          
+          if(videoId == null) {
+             $('#api').html('<iframe src="https://www.youtube2mp3.cc/api/" width="480" height="160" scrolling="no"></iframe>');  
+          } else {
+             if(format == null) {
+                format = 'mp3';
+             } 
+             
+             $('#api').html('<iframe src="https://www.youtube2mp3.cc/api/#'+videoId.toString()+'|'+format.toString()+'" width="480" height="160" scrolling="no"></iframe>');  
+          }   
+       } else {
+          $('#api').html('<iframe src="https://www.youtube2mp3.cc/api/" width="480" height="160" scrolling="no"></iframe>');    
+       }
+    });
+ </script> 
+</body>
+</html>
